@@ -1,17 +1,17 @@
 ---
-title: API Reference
+title: Reveknew - API Documentation
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - Java
-  - JavaScript
+  - Example Value | Model
+  
+
+  
 
 
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
-includes:
-  - errors
 
 search: true
 
@@ -19,226 +19,153 @@ code_clipboard: true
 
 meta:
   - name: description
-    content: Documentation for the Kittn API
+    content: Documentation for the  Reveknew-API
 ---
 
 # Introduction
 
-Welcome to the Animal  API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+# customer-resource
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
-
-# Authentication
-
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
+## Create a customer record under a business account
 
 ```json
 [
   {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+    "customerNum" : "string",
+    "email" : "string",
+    "firstName" : "string",
+    "id" : "string",
+    "lastName" : "string",
+    "phoneNo" : "string"
   }
 ]
 ```
 
-This endpoint retrieves all kittens.
+This endpoint creates a customer record under a business account
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+POST  /enterprise/v1/customers/{businessId}
 
 ### Query Parameters
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+Parameter | Description
+---------  | -----------
+businessId *required| businessId
+string                        |
+(path)                        |
+                                  |
+customer*required   | customer
+(body)                       |
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
+### Responses
 
-## Get a Specific Kitten
+Code         |                   Description
+-----------  |  ----------------------------------------------------------------------------
+200 | Customer record created successfully 
+      | Example  /Model
+      | {
+      |  "body" : {},
+      | "statusCode" : "100 CONTINUE" ,
+      | "statusCodeValue" : 0
+      | }
+201 | Created
+       |
+400 | Invalid data supplied for creation of customer 
+       |
+401 | Unauthorized
+       |
+403 | Operation not permitted for this business
+        |
+404 | Invalid businessId supplied      
 
-```ruby
-require 'kittn'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
 
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
+## Update a Customer record under a business account
 
 ```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
+[
+  {
+    "customerNum" : "string",
+    "email" : "string",
+    "firstName" : "string",
+    "id" : "string",
+    "lastName" : "string",
+    "phoneNo" : "string"
+  }
+]
 ```
 
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+This endpoint updates a customer record under a business account
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+PUT  /enterprise/v1/customers/{businessId}
 
-### URL Parameters
+### Query Parameters
 
 Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
+---------  | -----------
+businessId *required| businessId
+string                        |
+(path)                        |
+                                  |
+customer*required   | customer
+(body)                       |
 
-## Delete a Specific Kitten
+### Responses
 
-```ruby
-require 'kittn'
+Code         |                   Description
+-----------  |  ----------------------------------------------------------------------------
+200 | Customer record updated successfully 
+      | Example  /Model
+      | {
+      |  "body" : {},
+      | "statusCode" : "100 CONTINUE" ,
+      | "statusCodeValue" : 0
+      | }
+201 | Created
+       |
+400 | Invalid data supplied for update of customer record
+       |
+401 | Unauthorized
+       |
+403 | Operation not permitted for this business
+        |
+404 | Invalid businessId supplied    
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint deletes a specific kitten.
+## Find customer record by its id
+This endpoint finds  customer record by its id 
 
 ### HTTP Request
 
-`DELETE http://example.com/kittens/<ID>`
+GET /enterprise/v1/customers/{businessId}/id/{customerId}
 
-### URL Parameters
+### Query Parameters
 
 Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+---------  | -----------
+businessId *required| businessId
+string                        |
+(path)                        |
+                                  |
+customer*required   | customer
+(body)                       |
 
+### Responses
+
+Code         |                   Description
+-----------  |  ----------------------------------------------------------------------------
+200 | Customer record found successfully 
+      | Example  /Model
+      | {
+      |  "body" : {},
+      | "statusCode" : "100 CONTINUE" ,
+      | "statusCodeValue" : 0
+      | }
+       |
+401 | Unauthorized
+       |
+403 | Operation not permitted for this business
+        |
+404 | Invalid businessId supplied    
